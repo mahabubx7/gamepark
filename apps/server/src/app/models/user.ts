@@ -6,7 +6,7 @@ interface UserAttributes {
   id?: number
   email: string
   password: string
-  role?: 'user' | 'vendor'
+  role?: 'user' | 'vendor' | 'admin'
   createdAt?: Date
   deletedAt?: Date
   updatedAt?: Date
@@ -16,7 +16,7 @@ class User extends Model<UserAttributes> implements UserAttributes {
   public id!: number
   public email!: string
   public password!: string
-  public role!: 'user' | 'vendor'
+  public role!: 'user' | 'vendor' | 'admin'
   public createdAt!: Date
   public deletedAt?: Date
   public updatedAt?: Date
@@ -40,7 +40,7 @@ User.init(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM('user', 'vendor'),
+      type: DataTypes.ENUM('user', 'vendor', 'admin'),
       defaultValue: 'user',
     },
     createdAt: {
