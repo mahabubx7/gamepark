@@ -3,6 +3,7 @@ import User from '@app/models/user'
 import Profile from '@app/models/profile'
 import logger from '@config/logger'
 import bcrypt from 'bcrypt'
+import { z } from 'zod'
 import { makeJwtToken } from '@utils/jwt'
 
 class AuthController {
@@ -11,7 +12,10 @@ class AuthController {
    *---------------------------------------------*/
   async login(req: Request, res: Response) {
     try {
-      const { email, password } = req.body as Record<string, any>
+      const {
+        body: { email, password },
+      } = req.parsed as unknown as z.infer<typeof loginDto>
+
       // Check if required fields are provided
       if (!email || !password) {
         return res
@@ -53,7 +57,9 @@ class AuthController {
    *---------------------------------------------*/
   async register(req: Request, res: Response) {
     try {
-      const { email, password, fname, lname } = req.body as Record<string, any>
+      const {
+        body: { email, password, fname, lname },
+      } = req.parsed as unknown as z.infer<typeof registerDto>
       // Check if required fields are provided
       if (!email || !password || !fname || !lname) {
         return res
@@ -135,5 +141,22 @@ class AuthController {
     }
   }
 }
+
+// DTO for incoming request validation
+export const loginDto = z.object({
+  body: z.object({
+    email: z.string({ required_error: 'Email must be given!' }).email(),
+    password: z.string({ required_error: 'Password must be given!' }).min(6),
+  }),
+})
+
+export const registerDto = z.object({
+  body: z.object({
+    email: z.string({ required_error: 'Email must be given!' }).email(),
+    password: z.string({ required_error: 'Password must be given!' }).min(6),
+    fname: z.string({ required_error: 'First Name must be given!' }).min(3),
+    lname: z.string({ required_error: 'Last Name must be given!' }).min(3),
+  }),
+})
 
 export default new AuthController()
