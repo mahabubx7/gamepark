@@ -1,20 +1,18 @@
 import { Model, DataTypes } from 'sequelize'
 import orm from '@config/orm'
+import bcrypt from 'bcrypt'
 
 interface UserAttributes {
   id?: number
   email: string
   password: string
-  role: 'user' | 'vendor'
+  role?: 'user' | 'vendor'
   createdAt?: Date
   deletedAt?: Date
   updatedAt?: Date
 }
 
-export default class User
-  extends Model<UserAttributes>
-  implements UserAttributes
-{
+class User extends Model<UserAttributes> implements UserAttributes {
   public id!: number
   public email!: string
   public password!: string
@@ -63,3 +61,10 @@ User.init(
     modelName: 'User',
   },
 )
+
+// Hash password before creating user
+User.addHook('beforeCreate', async (user: User) => {
+  user.password = await bcrypt.hash(user.password, 10)
+})
+
+export default User

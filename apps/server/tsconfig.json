@@ -23,6 +23,7 @@
       "*": ["node_modules/*"],
       "@app/*": ["src/app/*"],
       "@config/*": ["src/config/*"],
+      "@utils/*": ["src/utils/*"],
       "src/*": ["src/*"]
     }
   },

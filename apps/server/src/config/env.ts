@@ -32,9 +32,13 @@ const env = {
   port: parser.key<number>('PORT', 5000).integer().unsigned().get(),
   host: parser.key<string>('HOST', '0.0.0.0').url().get(),
   logLevel: parser.key('LOG_LEVEL', 'info').get(),
+  jwt: {
+    jwtSecret: parser.key('JWT_SECRET', 'secret').get(),
+    jwtExpire: parser.key('JWT_EXPIRE', '7d').get(),
+  },
   databases: {
     postgres: {
-      name: parser.key('DB_NAME', 'pern_db').get(),
+      name: parser.key('DB_NAME', 'gamepark').get(),
       user: parser.key('DB_USER', 'postgres').get(),
       password: parser.key('DB_PASSWORD', 'postgres').get(),
       host: parser.key('DB_HOST', '127.0.0.1').get(),

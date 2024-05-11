@@ -2,7 +2,7 @@ require('ts-node/register')
 require('dotenv').config()
 
 function getDb() {
-  const dbName = process.env.DB_NAME || 'pern_db'
+  const dbName = process.env.DB_NAME || 'gamepark'
   if (process.env.NODE_ENV === 'production') {
     return dbName + '_prod'
   } else if (process.env.NODE_ENV === 'test') {
