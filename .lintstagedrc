@@ -1,0 +1,4 @@
+{
+  "apps/**/*.{js,ts,jsx,tsx,json,css,scss,md}": ["prettier --write"],
+  "apps/**/*src/**/*.+(js,ts,jsx,tsx,json,css,scss,md)": ["tslint"]
+}

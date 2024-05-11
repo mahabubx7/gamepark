@@ -1,0 +1,51 @@
+{
+  "name": "pern",
+  "version": "1.0.0",
+  "description": "pern-stack-starter-kit",
+  "repository": "git@github.com:mahabubx7/pern-starter-kit.git",
+  "author": "Mahabub <mahabubx7@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "lint-staged": "lint-staged — config .lintstagedrc",
+    "commit": "./node_modules/cz-customizable/standalone.js",
+    "commitlint": "commitlint --edit",
+    "server": "yarn workspace server",
+    "client": "yarn workspace client",
+    "build": "yarn workspace client build && yarn workspace server build",
+    "dev": "concurrently -c blue,green -n server,client \"yarn server start\" \"yarn client dev\""
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@commitlint/types": "^19.0.3",
+    "commitlint": "^19.3.0",
+    "concurrently": "^8.2.2",
+    "cz-customizable": "^7.0.0",
+    "eslint": "^9.2.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5"
+  },
+  "engines": {
+    "node": ">=20.x"
+  },
+  "bugs": {
+    "url": "https://github.com/mahabubx7/pern-starter-kit.git/issues"
+  },
+  "homepage": "https://github.com/mahabubx7/pern-starter-kit.git#readme",
+  "config": {
+    "commitlint": {
+      "extends": [
+        "@commitlint/config-conventional"
+      ],
+      "path": "./commitlint.config.js"
+    },
+    "commitizen": {
+      "path": "cz-customizable"
+    }
+  }
+}
