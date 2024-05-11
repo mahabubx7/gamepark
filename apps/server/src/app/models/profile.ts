@@ -68,6 +68,7 @@ Profile.belongsTo(User, {
     allowNull: false,
   },
   as: 'user',
+  onDelete: 'CASCADE',
 })
 
 export default Profile
