@@ -16,7 +16,7 @@ export default function jwtGuard(
 ) {
   // parse token at first
   const token = req.headers.authorization?.split(' ')[1] // from bearer token
-  if (!token) return res.status(401).json({ message: 'Unauthorized' })
+  if (!token) return res.status(404).json({ message: 'Unauthorized' })
 
   // verify JWT token
   const decode = verifyJwtToken(token)
