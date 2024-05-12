@@ -43,7 +43,7 @@ TeamMembers.init(
 )
 
 // relationships between Team and TeamMembers
-Team.hasMany(TeamMembers, {
+Team.hasOne(TeamMembers, {
   foreignKey: 'teamId',
   as: 'members',
   onDelete: 'CASCADE',
