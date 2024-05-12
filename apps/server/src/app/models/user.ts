@@ -18,7 +18,7 @@ class User extends Model<UserAttributes> implements UserAttributes {
   public id!: number
   public email!: string
   public password!: string
-  public username?: string
+  public username!: string
   public role!: 'user' | 'vendor' | 'admin'
   isApproved!: boolean
   public createdAt!: Date

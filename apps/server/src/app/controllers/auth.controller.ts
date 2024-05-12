@@ -6,6 +6,8 @@ import bcrypt from 'bcrypt'
 import { z } from 'zod'
 import { makeJwtToken } from '@utils/jwt'
 import { generateUsernameHash } from '@utils/uid'
+import { Team } from '@app/models/team'
+import { TeamMembers } from '@app/models/teammembers'
 
 class AuthController {
   /*----------------------------------------------
@@ -90,7 +92,21 @@ class AuthController {
             lname,
             userId: _user.id!,
           })
-            .then((p) => {
+            .then(async (p) => {
+              // create the solo team
+              await Team.create({
+                code: 'solo_' + _user.username,
+                ownerId: _user.id!,
+                createdAt: new Date(),
+                teamSize: 1,
+              }).then(async (team) => {
+                // add user to the team member
+                await TeamMembers.create({
+                  teamId: team.id!,
+                  userId: _user.id!,
+                })
+              })
+
               // success return 201
               return res.status(201).json({
                 message: 'User created successfully',
