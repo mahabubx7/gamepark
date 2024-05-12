@@ -11,7 +11,7 @@ interface SportAttributes {
   updatedAt?: Date
 }
 
-export class Sports extends Model<SportAttributes> implements SportAttributes {
+export class Sport extends Model<SportAttributes> implements SportAttributes {
   public id!: number
   public name!: string
   public uid!: string
@@ -22,7 +22,7 @@ export class Sports extends Model<SportAttributes> implements SportAttributes {
   public readonly updatedAt!: Date
 }
 
-Sports.init(
+Sport.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -58,7 +58,7 @@ Sports.init(
   },
   {
     sequelize: orm,
-    modelName: 'Sports',
+    modelName: 'Sport',
     paranoid: true,
   },
 )

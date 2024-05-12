@@ -4,6 +4,7 @@ import { DataTypes, Model } from 'sequelize'
 interface GameModeAttributes {
   id: number
   name?: string
+  totalPlayers?: number
   description?: string
   createdAt?: Date
   deletedAt?: Date
@@ -16,6 +17,7 @@ export class GameMode
 {
   public id!: number
   public name!: string
+  public totalPlayers!: number
   public description!: string
 
   public readonly createdAt!: Date
@@ -34,6 +36,11 @@ GameMode.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+    totalPlayers: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
     },
     description: {
       type: DataTypes.STRING,

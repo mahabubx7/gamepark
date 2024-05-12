@@ -14,6 +14,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      totalPlayers: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       description: {
         type: Sequelize.STRING,
         allowNull: true,
@@ -22,8 +26,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      deletedAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
+      },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
       },
     })
