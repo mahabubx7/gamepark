@@ -1,5 +1,7 @@
 import orm from '@config/orm'
 import { Model, DataTypes } from 'sequelize'
+import Venue from './venue'
+import { Sport } from './sport'
 
 interface VenueSportsAttributes {
   id: number
@@ -39,3 +41,14 @@ VenueSports.init(
     timestamps: false,
   },
 )
+
+// relationships between Venue and Sport
+Venue.belongsToMany(Sport, {
+  through: VenueSports,
+  foreignKey: 'venueId',
+})
+
+Sport.belongsToMany(Venue, {
+  through: VenueSports,
+  foreignKey: 'sportId',
+})
