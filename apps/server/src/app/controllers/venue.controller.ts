@@ -2,6 +2,7 @@ import { z } from 'zod'
 import { Request, Response } from 'express'
 import { generateUid } from '@utils/uid'
 import Venue from '@app/models/venue'
+import User from '@app/models/user'
 
 class VenueController {
   /*----------------------------------------------
@@ -12,6 +13,13 @@ class VenueController {
       const {
         body: { name, address },
       } = (await addVenueDto.parseAsync(req)) as z.infer<typeof addVenueDto>
+      // only verfied vendors can add a venue
+      const vendor = await User.findByPk(+Number(req.user!.id))
+      if (!vendor) return res.status(404).json({ message: 'Vendor not found!' })
+      if (!vendor.isApproved)
+        return res
+          .status(403)
+          .json({ message: 'Vendor account not approved yet!' })
       // create a new venue
       const venue = await Venue.create({
         name,
