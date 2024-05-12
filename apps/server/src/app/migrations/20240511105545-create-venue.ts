@@ -27,8 +27,16 @@ module.exports = {
         type: dt.STRING,
         allowNull: false,
       },
+      isApproved: {
+        type: dt.BOOLEAN,
+        defaultValue: false,
+      },
       createdAt: {
         allowNull: false,
+        type: dt.DATE,
+      },
+      deletedAt: {
+        allowNull: true,
         type: dt.DATE,
       },
       updatedAt: {

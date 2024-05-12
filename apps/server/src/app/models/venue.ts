@@ -1,5 +1,4 @@
 import { Model, DataTypes } from 'sequelize'
-import { generateUid } from '@utils/uid'
 import orm from '@config/orm'
 import User from '@app/models/user'
 
@@ -9,6 +8,7 @@ interface VenueAttributes {
   uid: string
   name: string
   address: string
+  isApproved?: boolean
   createdAt?: Date
   deletedAt?: Date
   updatedAt?: Date
@@ -20,6 +20,7 @@ class Venue extends Model<VenueAttributes> implements VenueAttributes {
   public uid!: string
   public name!: string
   public address!: string
+  public isApproved!: boolean
   public createdAt!: Date
   public deletedAt?: Date
   public updatedAt?: Date
@@ -50,6 +51,10 @@ Venue.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    isApproved: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
@@ -72,18 +77,13 @@ Venue.init(
   },
 )
 
-// hooks
-Venue.addHook('beforeCreate', (venue: Venue) => {
-  venue.uid = generateUid() // generate unique id
-})
-
 // relations
 Venue.belongsTo(User, {
   foreignKey: {
     name: 'adminId',
     allowNull: false,
   },
-  as: 'admin',
+  as: 'owner',
   onDelete: 'CASCADE',
 })
 

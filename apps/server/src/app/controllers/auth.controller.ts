@@ -5,6 +5,7 @@ import logger from '@config/logger'
 import bcrypt from 'bcrypt'
 import { z } from 'zod'
 import { makeJwtToken } from '@utils/jwt'
+import { generateUsernameHash } from '@utils/uid'
 
 class AuthController {
   /*----------------------------------------------
@@ -77,6 +78,7 @@ class AuthController {
       await User.create({
         email,
         password,
+        username: generateUsernameHash(),
       })
         .then(async (user) => {
           // remove password from user object
@@ -142,7 +144,9 @@ class AuthController {
   }
 }
 
-// DTO for incoming request validation
+// DTO for incoming request validation //
+
+// login dto
 export const loginDto = z.object({
   body: z.object({
     email: z.string({ required_error: 'Email must be given!' }).email(),
@@ -150,6 +154,7 @@ export const loginDto = z.object({
   }),
 })
 
+// register dto
 export const registerDto = z.object({
   body: z.object({
     email: z.string({ required_error: 'Email must be given!' }).email(),

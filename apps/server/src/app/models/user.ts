@@ -6,6 +6,7 @@ interface UserAttributes {
   id?: number
   email: string
   password: string
+  username?: string
   role?: 'user' | 'vendor' | 'admin'
   createdAt?: Date
   deletedAt?: Date
@@ -16,6 +17,7 @@ class User extends Model<UserAttributes> implements UserAttributes {
   public id!: number
   public email!: string
   public password!: string
+  public username?: string
   public role!: 'user' | 'vendor' | 'admin'
   public createdAt!: Date
   public deletedAt?: Date
@@ -31,6 +33,11 @@ User.init(
       type: DataTypes.INTEGER,
     },
     email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,

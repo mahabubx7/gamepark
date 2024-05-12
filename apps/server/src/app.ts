@@ -11,7 +11,7 @@ import { DtoException } from '@app/middlewares/dto'
 
 const app: Express = express() // Express app instance
 
-app.use(cors({ ...corsOptions })) // Enable CORS
+app.use('/api', cors({ ...corsOptions })) // Enable CORS
 app.use(express.json()) // Enable JSON parsing
 app.use(express.urlencoded({ extended: true })) // Enable URL-encoded parsing
 app.use(globalRouter) // global registry for routes
