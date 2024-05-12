@@ -40,28 +40,11 @@ class VenueController {
 
 // DTO for incoming request validation //
 
-// approve vendor account
-export const approveVendorAccountDto = z.object({
-  params: z.object({
-    id: z.string({ required_error: 'Vendor ID must be given!' }),
-  }),
-})
-
 // apply venue Dto
 export const addVenueDto = z.object({
   body: z.object({
     name: z.string({ required_error: 'Name must be given!' }),
     address: z.string({ required_error: 'Address must be given!' }),
-  }),
-})
-
-// apply for vendor
-export const applyAsVendor = z.object({
-  body: z.object({
-    email: z.string({ required_error: 'Email must be given!' }).email(),
-    password: z.string({ required_error: 'Password must be given!' }),
-    fname: z.string({ required_error: 'First Name must be given!' }),
-    lname: z.string({ required_error: 'Last Name must be given!' }),
   }),
 })
 
