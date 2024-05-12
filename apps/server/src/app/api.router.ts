@@ -34,6 +34,14 @@ apiRouter.get(
 )
 /*=== \Auth ===*/
 
+/*=== Users ===*/
+apiRouter.get('/user/:id', userController.getProfile) // Get user profile
+
+apiRouter.put('/user/:id', userController.updateProfile) // Update user profile
+
+apiRouter.delete('/user/:id', userController.deleteUser) // Delete user & its profile
+/*=== \Users ===*/
+
 /*=== Vendor ===*/
 apiRouter.post(
   '/vendor',
@@ -46,6 +54,14 @@ apiRouter.put(
   [jwtGuard, roleGuard(['admin']), dtoGuard(approveVendorAccountDto)],
   userController.approveVendorAccount,
 ) // Approve vendor account
+
+apiRouter.get(
+  '/vendor',
+  [jwtGuard, roleGuard(['admin'])],
+  userController.getVendors,
+) // Get all vendors
+
+apiRouter.get('/vendor/detail/:id', [jwtGuard], userController.getVendorDetails) // Get vendor details
 
 apiRouter.get(
   '/vendor/applicants',
