@@ -28,6 +28,10 @@ module.exports = {
         type: Sequelize.ENUM('user', 'vendor', 'admin'),
         defaultValue: 'user',
       },
+      isApproved: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

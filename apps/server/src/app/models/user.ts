@@ -8,6 +8,7 @@ interface UserAttributes {
   password: string
   username?: string
   role?: 'user' | 'vendor' | 'admin'
+  isApproved?: boolean
   createdAt?: Date
   deletedAt?: Date
   updatedAt?: Date
@@ -19,6 +20,7 @@ class User extends Model<UserAttributes> implements UserAttributes {
   public password!: string
   public username?: string
   public role!: 'user' | 'vendor' | 'admin'
+  isApproved!: boolean
   public createdAt!: Date
   public deletedAt?: Date
   public updatedAt?: Date
@@ -49,6 +51,10 @@ User.init(
     role: {
       type: DataTypes.ENUM('user', 'vendor', 'admin'),
       defaultValue: 'user',
+    },
+    isApproved: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     createdAt: {
       allowNull: false,

@@ -1,15 +1,16 @@
 import { Router } from 'express'
-import jwtGuard from './middlewares/jwt'
-import dtoGuard from './middlewares/dto'
+import jwtGuard from '@app/middlewares/jwt'
+import dtoGuard from '@app/middlewares/dto'
+import roleGuard from '@app/middlewares/role'
 import authController, {
   loginDto,
   registerDto,
 } from '@app/controllers/auth.controller'
-import venueController, {
+import userController, {
   applyAsVendor,
-  addVenueDto,
-} from '@app/controllers/venue.controller'
-import roleGuard from './middlewares/role'
+  approveVendorAccountDto,
+} from '@app/controllers/user.controller'
+import venueController, { addVenueDto } from '@app/controllers/venue.controller'
 
 const apiRouter = Router()
 
@@ -33,13 +34,28 @@ apiRouter.get(
 )
 /*=== \Auth ===*/
 
-/*=== Venue ===*/
+/*=== Vendor ===*/
 apiRouter.post(
-  '/apply/vendor',
+  '/vendor',
   [dtoGuard(applyAsVendor)],
-  venueController.applyForVendorAccount,
+  userController.applyForVendorAccount,
 ) // Apply for vendor account
 
+apiRouter.put(
+  '/vendor/:id',
+  [jwtGuard, roleGuard(['admin']), dtoGuard(approveVendorAccountDto)],
+  userController.approveVendorAccount,
+) // Approve vendor account
+
+apiRouter.get(
+  '/vendor/applicants',
+  [jwtGuard, roleGuard(['admin'])],
+  userController.getVendorApplicants,
+) // Get all vendor applicants
+
+/*=== \Vendor ===*/
+
+/*=== Venue ===*/
 apiRouter.post(
   '/venue',
   [jwtGuard, roleGuard(['vendor']), dtoGuard(addVenueDto)],

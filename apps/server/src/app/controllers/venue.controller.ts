@@ -1,9 +1,7 @@
 import { z } from 'zod'
 import { Request, Response } from 'express'
-import { generateUid, generateUsernameHash } from '@utils/uid'
+import { generateUid } from '@utils/uid'
 import Venue from '@app/models/venue'
-import Profile from '@app/models/profile'
-import User from '@app/models/user'
 
 class VenueController {
   /*----------------------------------------------
@@ -30,62 +28,16 @@ class VenueController {
       return res.status(500).json({ message: 'Internal server error' })
     }
   }
-
-  /*----------------------------------------------
-   * @venue apply for vendor account
-   *---------------------------------------------*/
-  async applyForVendorAccount(req: Request, res: Response) {
-    try {
-      const {
-        body: { email, password, fname, lname },
-      } = (await applyAsVendor.parseAsync(req)) as z.infer<typeof applyAsVendor>
-      // create a new user
-      await User.create({
-        email,
-        password,
-        role: 'vendor', // set user role to vendor
-        username: generateUsernameHash(), // generate a unique username
-      })
-        .then(async (u) => {
-          // create a new profile
-          const { password, ..._user } = u.toJSON()
-          await Profile.create({
-            userId: _user.id!,
-            fname,
-            lname,
-          })
-            .then((p) => {
-              return res.status(201).json({
-                message: 'Vendor account created!',
-                data: {
-                  ..._user,
-                  profile: {
-                    fname: p.fname,
-                    lname: p.lname,
-                    address: p.address,
-                  },
-                },
-              })
-            })
-            .catch((err) => {
-              return res
-                .status(400)
-                .json({ message: 'An error occured!', error: err })
-            })
-        })
-        .catch((err) => {
-          return res
-            .status(400)
-            .json({ message: 'An error occured!', error: err })
-        })
-    } catch (error) {
-      console.log(error)
-      return res.status(500).json({ message: 'Internal server error' })
-    }
-  }
 }
 
 // DTO for incoming request validation //
+
+// approve vendor account
+export const approveVendorAccountDto = z.object({
+  params: z.object({
+    id: z.string({ required_error: 'Vendor ID must be given!' }),
+  }),
+})
 
 // apply venue Dto
 export const addVenueDto = z.object({
