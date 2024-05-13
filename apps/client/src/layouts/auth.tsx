@@ -1,9 +1,20 @@
+import { RtkRootState } from '@rtk/store'
+import { useEffect } from 'react'
 import { GrFormPrevious } from 'react-icons/gr'
+import { useSelector } from 'react-redux'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
 export function AuthLayout() {
   const navigate = useNavigate()
   const location = useLocation()
+
+  const { isAuthenticated } = useSelector((state: RtkRootState) => state.auth)
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      return navigate('/dashboard')
+    }
+  }, [isAuthenticated, navigate])
 
   const handleGoBack = () => {
     if (location.state && location.state.from) {
