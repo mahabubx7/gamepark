@@ -1,0 +1,31 @@
+#loginForm,
+#RegisterForm {
+  @apply w-full mx-auto py-4 px-2 
+  flex flex-col gap-4
+  bg-white;
+}
+
+#loginForm legend,
+#RegisterForm legend {
+  @apply text-xl font-semibold text-center;
+}
+
+#loginForm fieldset,
+#RegisterForm fieldset {
+  @apply flex flex-col gap-x-2 items-start;
+}
+
+#loginForm fieldset input,
+#RegisterForm fieldset input {
+  @apply block w-full py-1.5 px-1 pl-2 border-b-2 border-gray-300 outline-none mt-1;
+}
+
+#loginForm fieldset a,
+#RegisterForm fieldset a {
+  @apply text-green-600 text-lg text-sm underline;
+}
+
+.btn_submit {
+  @apply bg-green-600 text-white font-semibold 
+  rounded-lg py-2.5 text-xl mt-2.5;
+}

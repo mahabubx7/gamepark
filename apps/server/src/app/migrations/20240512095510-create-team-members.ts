@@ -15,14 +15,14 @@ module.exports = {
         teamId: {
           type: Sequelize.INTEGER,
         },
-        memeberId: {
+        memberId: {
           type: Sequelize.INTEGER,
         },
       },
       {
         uniqueKeys: {
           uniqueTeamMember: {
-            fields: ['teamId', 'memeberId'],
+            fields: ['teamId', 'memberId'],
           },
         },
       },

@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,8 @@
 
 .read-the-docs {
   color: #888;
+} */
+
+.btn {
+  @apply bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-md my-1 cursor-pointer;
 }
