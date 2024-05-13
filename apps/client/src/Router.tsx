@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { AuthLayout, DashboardLayout, DefaultLayout } from '@layouts'
-import { DashboardPage, HomePage, LoginPage } from '@pages'
+import { DashboardPage, HomePage, LoginPage, RegisterPage } from '@pages'
 import AuthGuard from './helpers/authGuard'
 
 export default function Router() {
@@ -16,7 +16,7 @@ export default function Router() {
         <Route path='/auth' element={<AuthLayout />}>
           <Route index element={<LoginPage />} />
           <Route path='login' element={<LoginPage />} />
-          <Route path='register' element={<div>Register</div>} />
+          <Route path='register' element={<RegisterPage />} />
           <Route path='*' element={<div>Not found! 404</div>} />
         </Route>
 

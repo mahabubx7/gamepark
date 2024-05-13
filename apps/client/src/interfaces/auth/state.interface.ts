@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface AuthState {
   isAuthenticated: boolean
   isLoading: boolean
