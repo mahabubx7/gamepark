@@ -51,7 +51,7 @@ Profile.init(
       type: DataTypes.DATE,
     },
     updatedAt: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.DATE,
     },
   },
@@ -61,14 +61,8 @@ Profile.init(
   },
 )
 
-// relationship 1-1 <BelongsTo>
-Profile.belongsTo(User, {
-  foreignKey: {
-    name: 'userId',
-    allowNull: false,
-  },
-  as: 'user',
-  onDelete: 'CASCADE',
-})
+// relationship <Profile :: User> 1-1
+User.hasOne(Profile, { foreignKey: 'userId', onDelete: 'CASCADE' })
+Profile.belongsTo(User, { foreignKey: 'userId' })
 
 export default Profile
