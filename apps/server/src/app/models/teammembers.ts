@@ -6,7 +6,7 @@ import User from './user'
 interface TeamMembersAttributes {
   id?: number
   teamId: number
-  userId: number
+  memberId: number
 }
 
 export class TeamMembers
@@ -15,7 +15,7 @@ export class TeamMembers
 {
   public id!: number
   public teamId!: number
-  public userId!: number
+  public memberId!: number
 }
 
 TeamMembers.init(
@@ -30,7 +30,7 @@ TeamMembers.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    userId: {
+    memberId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -57,7 +57,7 @@ TeamMembers.belongsTo(Team, {
 // relationships between User and TeamMembers
 User.belongsToMany(Team, {
   through: TeamMembers,
-  foreignKey: 'userId',
+  foreignKey: 'memberId',
 })
 
 Team.belongsToMany(User, {

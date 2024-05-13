@@ -19,12 +19,6 @@ class AuthController {
         body: { email, password },
       } = req.parsed as unknown as z.infer<typeof loginDto>
 
-      // Check if required fields are provided
-      if (!email || !password) {
-        return res
-          .status(400)
-          .json({ message: 'Please provide all required fields' })
-      }
       // Check if user exists
       const user = await User.findOne({ where: { email } })
 
@@ -63,12 +57,7 @@ class AuthController {
       const {
         body: { email, password, fname, lname },
       } = req.parsed as unknown as z.infer<typeof registerDto>
-      // Check if required fields are provided
-      if (!email || !password || !fname || !lname) {
-        return res
-          .status(400)
-          .json({ message: 'Please provide all required fields' })
-      }
+
       // Check if user already exists
       const user = await User.findOne({ where: { email } })
 
@@ -103,7 +92,9 @@ class AuthController {
                 // add user to the team member
                 await TeamMembers.create({
                   teamId: team.id!,
-                  userId: _user.id!,
+                  memberId: _user.id!,
+                }).catch((err) => {
+                  logger.error(err)
                 })
               })
 
