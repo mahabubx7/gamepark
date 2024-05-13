@@ -1,3 +1,10 @@
 .header {
-  @apply bg-gray-200 text-gray-900 py-6 w-full;
+  @apply w-full;
+}
+.mobile__menu {
+  @apply flex items-center justify-between gap-4 w-full h-full px-1.5;
+}
+
+.mobile__menu .link {
+  @apply flex items-center justify-center text-4xl w-12 h-12 rounded-lg m-2 cursor-pointer;
 }

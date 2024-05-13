@@ -7,6 +7,21 @@ body {
   padding: 0;
 }
 
+#root {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+  height: 100%;
+  min-height: 100vh;
+  background-color: #efefef;
+}
+
+#menuNav {
+  @apply flex justify-between items-center bg-white 
+  text-gray-700 font-semibold p-0 m-0;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

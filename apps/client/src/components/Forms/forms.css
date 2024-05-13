@@ -1,7 +1,7 @@
 #loginForm {
-  @apply w-full max-w-[320px] mx-auto py-4 px-2 
-  flex flex-col gap-2
-  bg-white shadow-md rounded-md;
+  @apply w-full mx-auto py-4 px-2 
+  flex flex-col gap-4
+  bg-white;
 }
 
 #loginForm legend {
@@ -13,9 +13,14 @@
 }
 
 #loginForm fieldset input {
-  @apply block w-full py-1.5 px-1 pl-2 border border-gray-300 outline-none rounded-md mt-1;
+  @apply block w-full py-1.5 px-1 pl-2 border-b-2 border-gray-300 outline-none mt-1;
 }
 
 #loginForm fieldset a {
-  @apply text-sky-600 text-lg text-sm underline;
+  @apply text-green-600 text-lg text-sm underline;
+}
+
+.btn_submit {
+  @apply bg-green-600 text-white font-semibold 
+  rounded-lg py-2.5 text-xl mt-2.5;
 }

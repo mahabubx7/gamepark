@@ -7,9 +7,7 @@ import { Link } from 'react-router-dom'
 export function LoginForm() {
   const dispatch = useDispatch<AppDispatch>()
 
-  const { isLoading, isAuthenticated } = useSelector(
-    (state: RtkRootState) => state.auth,
-  )
+  const { isLoading } = useSelector((state: RtkRootState) => state.auth)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -19,41 +17,49 @@ export function LoginForm() {
   }
 
   return (
-    <form id='loginForm' onSubmit={handleSubmit}>
-      <legend>{isAuthenticated ? 'Login Successfull!' : 'Sign In'}</legend>
-      <fieldset>
-        <label htmlFor='email'>Email</label>
+    <form id='loginForm' onSubmit={handleSubmit} className='min-h-[65vh]'>
+      <legend className='mb-auto'>
+        <p className='text-left'>
+          <span className='text-2xl pl-0 text-gray-600 text-center block mb-0'>
+            Welcome back to
+          </span>
+          <span className='text-center text-green-500 capitalize text-6xl font-bold block my-2'>
+            Gamepark
+          </span>
+        </p>
+        <p className='text-xl text-gray-500 mt-4 text-sm'>
+          Login to continue to your account
+        </p>
+      </legend>
+      <fieldset className='mt-auto'>
         <input
           type='email'
           name='email'
-          id='email'
-          placeholder='Enter your email address'
+          placeholder='Email Address'
           autoComplete='off'
           required
         />
       </fieldset>
       <fieldset>
-        <label htmlFor='password'>Password</label>
         <input
           type='password'
-          id='password'
           name='password'
-          placeholder='Enter your password'
+          placeholder='Password'
           autoComplete='off'
           required
         />
       </fieldset>
-      <button type='submit' className='btn btn-submit' disabled={isLoading}>
-        {isLoading ? 'Signing In...' : 'Login'}
+      <button type='submit' className='btn_submit' disabled={isLoading}>
+        {isLoading ? 'Signing In...' : 'Sign In'}
       </button>
-      <fieldset className='flex flex-col gap-2 text-center text-sm'>
-        <span className='w-full'>
-          Don't have an account? <Link to='/register'>Register here</Link>
+      <p className='text-center mt-1 text-gray-500'>
+        Are your new here /{' '}
+        <span>
+          <Link to='/register' className='text-green-500 font-semibold'>
+            Register
+          </Link>
         </span>
-        <Link className='w-full' to='/forgot-password'>
-          Forgot Password?
-        </Link>
-      </fieldset>
+      </p>
     </form>
   )
 }

@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { DashboardLayout, DefaultLayout } from '@layouts'
+import { AuthLayout, DashboardLayout, DefaultLayout } from '@layouts'
 import { DashboardPage, HomePage, LoginPage } from '@pages'
 
 export default function Router() {
@@ -10,6 +10,13 @@ export default function Router() {
         <Route path='/' element={<DefaultLayout />}>
           <Route index element={<HomePage />}></Route>
           <Route path='login' element={<LoginPage />}></Route>
+          <Route path='*' element={<div>Not found! 404</div>}></Route>
+        </Route>
+
+        <Route path='/auth' element={<AuthLayout />}>
+          <Route index element={<LoginPage />}></Route>
+          <Route path='login' element={<LoginPage />}></Route>
+          <Route path='register' element={<div>Register</div>}></Route>
           <Route path='*' element={<div>Not found! 404</div>}></Route>
         </Route>
 
