@@ -1,0 +1,21 @@
+#loginForm {
+  @apply w-full max-w-[320px] mx-auto py-4 px-2 
+  flex flex-col gap-2
+  bg-white shadow-md rounded-md;
+}
+
+#loginForm legend {
+  @apply text-xl font-semibold text-center;
+}
+
+#loginForm fieldset {
+  @apply flex flex-col gap-x-2 items-start;
+}
+
+#loginForm fieldset input {
+  @apply block w-full py-1.5 px-1 pl-2 border border-gray-300 outline-none rounded-md mt-1;
+}
+
+#loginForm fieldset a {
+  @apply text-sky-600 text-lg text-sm underline;
+}

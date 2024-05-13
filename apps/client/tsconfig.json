@@ -28,6 +28,7 @@
       "@helpers": ["src/helpers/"],
       "@layouts": ["src/layouts/"],
       "@rtk/*": ["src/redux/*"],
+      "@interfaces/*": ["src/interfaces/*"],
       "src/*": ["src/*"]
     }
   },

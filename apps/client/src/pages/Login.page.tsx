@@ -1,3 +1,9 @@
+import { LoginForm } from '@components'
+
 export default function LoginPage() {
-  return <h2>Login page</h2>
+  return (
+    <div className='auth_page'>
+      <LoginForm />
+    </div>
+  )
 }
