@@ -18,7 +18,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*"],
+      "@components": ["src/components/"],
+      "@pages": ["src/pages/"],
+      "@helpers": ["src/helpers/"],
+      "@layouts": ["src/layouts/"],
+      "@rtk/*": ["src/redux/*"],
+      "src/*": ["src/*"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
