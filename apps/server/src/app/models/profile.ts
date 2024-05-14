@@ -62,7 +62,11 @@ Profile.init(
 )
 
 // relationship <Profile :: User> 1-1
-User.hasOne(Profile, { foreignKey: 'userId', onDelete: 'CASCADE' })
-Profile.belongsTo(User, { foreignKey: 'userId' })
+User.hasOne(Profile, {
+  foreignKey: 'userId',
+  onDelete: 'CASCADE',
+  as: 'profile',
+})
+Profile.belongsTo(User, { foreignKey: 'userId', as: 'user' })
 
 export default Profile

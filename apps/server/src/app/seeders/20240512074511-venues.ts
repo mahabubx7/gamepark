@@ -20,6 +20,7 @@ module.exports = {
         address: 'Road 103, Gulshan 2, Dhaka',
         uid: generateUid(),
         adminId: 2,
+        isApproved: true,
         createdAt: new Date(),
       },
       {
@@ -27,6 +28,7 @@ module.exports = {
         address: 'Mirpur 10, Dhaka',
         uid: generateUid(),
         adminId: 2,
+        isApproved: true,
         createdAt: new Date(),
       },
     ])

@@ -31,7 +31,7 @@ module.exports = {
           email: 'vendor@gmail.com',
           password: await bcrypt.hash('123456', 10),
           role: 'vendor',
-          isApproved: false, // admin needs to approve
+          isApproved: true,
           username: generateUsernameHash('vendor_'),
           createdAt: new Date(),
         },
