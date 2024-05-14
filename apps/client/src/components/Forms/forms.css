@@ -29,3 +29,17 @@
   @apply bg-green-600 text-white font-semibold 
   rounded-lg py-2.5 text-xl mt-2.5;
 }
+
+.btn_submit:disabled {
+  @apply bg-green-300 text-green-100;
+}
+
+form .error {
+  @apply bg-red-50 text-red-500 font-semibold text-sm 
+  py-[2px] px-1 my-1 rounded-sm;
+}
+
+#loginForm fieldset input.valid,
+#RegisterForm fieldset input.valid {
+  @apply border-green-300;
+}

@@ -20,7 +20,7 @@ module.exports = {
         {
           // id: 1,
           email: 'user@gmail.com',
-          password: await bcrypt.hash('123456', 10),
+          password: await bcrypt.hash('Abc123', 10),
           role: 'user',
           isApproved: true,
           username: generateUsernameHash(),
@@ -29,7 +29,7 @@ module.exports = {
         {
           // id: 2,
           email: 'vendor@gmail.com',
-          password: await bcrypt.hash('123456', 10),
+          password: await bcrypt.hash('Abc123', 10),
           role: 'vendor',
           isApproved: true,
           username: generateUsernameHash('vendor_'),
@@ -38,7 +38,7 @@ module.exports = {
         {
           // id: 3,
           email: 'admin@gmail.com',
-          password: await bcrypt.hash('123456', 10),
+          password: await bcrypt.hash('Abc123', 10),
           role: 'admin',
           isApproved: true,
           username: generateUsernameHash('admin_'),

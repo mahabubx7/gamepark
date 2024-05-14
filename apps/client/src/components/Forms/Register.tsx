@@ -9,9 +9,15 @@ import './forms.css'
 export function RegisterForm() {
   const dispatch = useDispatch<AppDispatch>()
 
-  const { isLoading } = useSelector((state: RtkRootState) => state.auth)
+  const { isLoading, errors: serverError } = useSelector(
+    (state: RtkRootState) => state.auth,
+  )
 
-  const { register, handleSubmit } = useForm<IRegisterBody>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, touchedFields, isValid },
+  } = useForm<IRegisterBody>()
 
   const handleSubmitForm: SubmitHandler<IRegisterBody> = (data) =>
     dispatch(registerRequest(data))
@@ -33,49 +39,111 @@ export function RegisterForm() {
         </p>
       </legend>
 
+      {serverError && (
+        <p className='error'>
+          {typeof serverError === 'string' ? serverError : serverError.message}
+        </p>
+      )}
+
       <fieldset className='mt-auto'>
         <input
-          {...register('fname')}
+          {...register('fname', {
+            required: 'Last Name is required',
+            pattern: {
+              value: /^[a-zA-Z]+$/,
+              message: 'Invalid Last Name',
+            },
+            minLength: {
+              value: 3,
+              message: 'First Name must be at least 3 characters long',
+            },
+          })}
           type='text'
           name='fname'
           placeholder='First Name'
           autoComplete='off'
-          required
         />
+        {errors.fname && <span className='error'>{errors.fname.message}</span>}
       </fieldset>
 
       <fieldset>
         <input
-          {...register('lname')}
+          {...register('lname', {
+            required: 'Last Name is required',
+            pattern: {
+              value: /^[a-zA-Z]+$/,
+              message: 'Invalid Last Name',
+            },
+            minLength: {
+              value: 3,
+              message: 'Last Name must be at least 3 characters long',
+            },
+          })}
           type='text'
-          name='lname'
           placeholder='Last Name'
           autoComplete='off'
-          required
         />
+        {errors.lname && <span className='error'>{errors.lname.message}</span>}
       </fieldset>
       <fieldset>
         <input
-          {...register('email')}
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /^[a-z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: 'Invalid email address',
+            },
+          })}
+          className={`${
+            errors.email
+              ? 'border-red-500'
+              : touchedFields.email && !errors.email
+                ? 'valid'
+                : ''
+          }`}
           type='email'
-          name='email'
           placeholder='Email Address'
           autoComplete='off'
-          required
         />
+        {errors.email && <span className='error'>{errors.email.message}</span>}
       </fieldset>
       <fieldset>
         <input
-          {...register('password')}
+          {...register('password', {
+            required: 'Password is required',
+            minLength: {
+              value: 6,
+              message: 'Password must be at least 6 characters long',
+            },
+            pattern: {
+              value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/,
+              message:
+                'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+            },
+          })}
+          className={`${
+            errors.password
+              ? 'border-red-500'
+              : touchedFields.password && !errors.password
+                ? 'valid'
+                : ''
+          }`}
           type='password'
-          name='password'
           placeholder='Password'
           autoComplete='off'
-          required
         />
+        {errors.password && (
+          <span className='error'>{errors.password.message}</span>
+        )}
       </fieldset>
-
-      <button type='submit' className='btn_submit' disabled={isLoading}>
+      <button
+        type='submit'
+        className='btn_submit'
+        disabled={
+          (touchedFields.email ?? touchedFields.password) &&
+          (isLoading || !isValid)
+        }
+      >
         {isLoading ? 'Signing Up...' : 'Sign Up'}
       </button>
       <p className='text-center mt-1 text-gray-500'>

@@ -2,7 +2,7 @@
 export interface AuthState {
   isAuthenticated: boolean
   isLoading: boolean
-  errors: any
+  errors: string | Record<string, any> | null
   user: {
     id: number
     email: string

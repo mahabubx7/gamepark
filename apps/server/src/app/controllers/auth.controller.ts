@@ -26,7 +26,7 @@ class AuthController {
 
       // Check if password is correct
       if (!(await bcrypt.compare(password, user.password))) {
-        return res.status(400).json({ message: 'Invalid password' })
+        return res.status(400).json({ message: 'Invalid credentials!' })
       }
 
       // remove password from user object
@@ -157,7 +157,13 @@ class AuthController {
 export const loginDto = z.object({
   body: z.object({
     email: z.string({ required_error: 'Email must be given!' }).email(),
-    password: z.string({ required_error: 'Password must be given!' }).min(6),
+    password: z
+      .string({ required_error: 'Password must be given!' })
+      .min(6)
+      .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/, {
+        message:
+          'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+      }),
   }),
 })
 
@@ -165,7 +171,13 @@ export const loginDto = z.object({
 export const registerDto = z.object({
   body: z.object({
     email: z.string({ required_error: 'Email must be given!' }).email(),
-    password: z.string({ required_error: 'Password must be given!' }).min(6),
+    password: z
+      .string({ required_error: 'Password must be given!' })
+      .min(6)
+      .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/, {
+        message:
+          'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+      }),
     fname: z.string({ required_error: 'First Name must be given!' }).min(3),
     lname: z.string({ required_error: 'Last Name must be given!' }).min(3),
   }),
