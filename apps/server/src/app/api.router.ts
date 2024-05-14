@@ -91,6 +91,12 @@ apiRouter.post(
 apiRouter.get('/venue', venueController.getVenues) // Get all venues [approved only]
 
 apiRouter.get(
+  '/venue/own',
+  [jwtGuard, roleGuard(['vendor'])],
+  venueController.getVenuesByOwner,
+) // Get all venues by the owner (vendor)
+
+apiRouter.get(
   '/venue/pending',
   [jwtGuard, roleGuard(['admin'])],
   venueController.getPendingVenues,

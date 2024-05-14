@@ -4,8 +4,9 @@ import {
   IRegisterResponse,
 } from '@interfaces/auth/register.interface'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { getHostAddress } from '@helpers'
 
-const baseUri = 'http://127.0.0.1:5000/api/auth'
+const baseUri = getHostAddress()
 
 export const loginRequest = createAsyncThunk<
   ILoginResponse,
@@ -13,7 +14,7 @@ export const loginRequest = createAsyncThunk<
   { rejectValue: string }
 >(baseUri + '/login', async (body, { rejectWithValue }) => {
   try {
-    const response = await fetch(`${baseUri}/login`, {
+    const response = await fetch(`${baseUri}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +42,7 @@ export const registerRequest = createAsyncThunk<
   { rejectValue: string }
 >(baseUri + '/register', async (body, { rejectWithValue }) => {
   try {
-    const response = await fetch(`${baseUri}/register`, {
+    const response = await fetch(`${baseUri}/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

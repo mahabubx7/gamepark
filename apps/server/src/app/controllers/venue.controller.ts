@@ -69,6 +69,36 @@ class VenueController {
       return res.status(500).json({ message: 'Internal server error', error })
     }
   }
+  /*----------------------------------------------
+   * @venue get list of venues
+   *---------------------------------------------*/
+  async getVenuesByOwner(req: Request, res: Response) {
+    try {
+      // get all venues with their admin details
+      const venues = await Venue.findAll({
+        where: { adminId: +Number(req.user!.id) },
+        include: [
+          {
+            model: User,
+            as: 'owner',
+            attributes: ['id', 'email'],
+            subQuery: true,
+            include: [
+              {
+                model: Profile,
+                as: 'profile',
+                attributes: ['fname', 'lname', 'address'],
+              },
+            ],
+          },
+        ],
+      })
+      return res.status(200).json({ data: venues })
+    } catch (error) {
+      logger.error(error)
+      return res.status(500).json({ message: 'Internal server error', error })
+    }
+  }
 
   /*----------------------------------------------
    * @venue get list of venues
