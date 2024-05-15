@@ -22,16 +22,16 @@
 
 #loginForm fieldset a,
 #RegisterForm fieldset a {
-  @apply text-green-600 text-lg text-sm underline;
+  @apply text-indigo-600 text-lg text-sm underline;
 }
 
 .btn_submit {
-  @apply bg-green-600 text-white font-semibold 
+  @apply bg-indigo-600 text-white font-semibold 
   rounded-lg py-2.5 text-xl mt-2.5;
 }
 
 .btn_submit:disabled {
-  @apply bg-green-300 text-green-100;
+  @apply bg-indigo-300 text-indigo-100;
 }
 
 form .error {
@@ -41,5 +41,5 @@ form .error {
 
 #loginForm fieldset input.valid,
 #RegisterForm fieldset input.valid {
-  @apply border-green-300;
+  @apply border-indigo-300;
 }

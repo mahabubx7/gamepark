@@ -44,3 +44,7 @@
 .btn {
   @apply bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 rounded-md my-1 cursor-pointer;
 }
+
+.container {
+  @apply w-full max-w-[800px] mx-auto px-2 mb-2 pt-4;
+}

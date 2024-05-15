@@ -30,7 +30,7 @@ export function RegisterForm() {
     >
       <legend className='mb-auto'>
         <p className='text-left'>
-          <span className='text-center text-green-500 capitalize text-6xl font-bold block my-2'>
+          <span className='text-center text-indigo-500 capitalize text-6xl font-bold block my-2'>
             Gamepark
           </span>
         </p>
@@ -149,7 +149,7 @@ export function RegisterForm() {
       <p className='text-center mt-1 text-gray-500'>
         Already have an account? /{' '}
         <span>
-          <Link to='/auth/login' className='text-green-500 font-semibold'>
+          <Link to='/auth/login' className='text-indigo-500 font-semibold'>
             Sign In
           </Link>
         </span>

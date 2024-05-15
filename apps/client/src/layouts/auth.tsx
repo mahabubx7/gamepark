@@ -12,7 +12,7 @@ export function AuthLayout() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      return navigate('/dashboard')
+      return navigate('/home')
     }
   }, [isAuthenticated, navigate])
 

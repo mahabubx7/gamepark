@@ -33,7 +33,7 @@ export function LoginForm() {
           <span className='text-2xl pl-0 text-gray-600 text-center block mb-0'>
             Welcome back to
           </span>
-          <span className='text-center text-green-500 capitalize text-6xl font-bold block my-2'>
+          <span className='text-center text-indigo-500 capitalize text-6xl font-bold block my-2'>
             Gamepark
           </span>
         </p>
@@ -110,7 +110,7 @@ export function LoginForm() {
       <p className='text-center mt-1 text-gray-500'>
         Are your new here /{' '}
         <span>
-          <Link to='/auth/register' className='text-green-500 font-semibold'>
+          <Link to='/auth/register' className='text-indigo-500 font-semibold'>
             Register
           </Link>
         </span>

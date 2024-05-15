@@ -7,6 +7,7 @@ import {
   RegisterPage,
   VendorAddPage,
   VendorDashboard,
+  WelcomePage,
   // VendorDashboard,
 } from '@pages'
 import AuthGuard from './helpers/authGuard'
@@ -15,8 +16,10 @@ export default function Router() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
+        <Route path='/welcome' element={<WelcomePage />} />
         <Route path='/' element={<DefaultLayout />}>
           <Route index element={<AuthGuard Component={HomePage} />} />
+          <Route path='home' element={<AuthGuard Component={HomePage} />} />
           <Route path='*' element={<div>Not found! 404</div>} />
         </Route>
 

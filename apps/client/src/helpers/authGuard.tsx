@@ -15,7 +15,7 @@ const AuthGuard = ({ Component, roles }: IAuthGuardProps) => {
   )
 
   if (!isAuthenticated) {
-    return <Navigate to='/auth/login' replace={true} />
+    return <Navigate to='/welcome' replace={true} />
   }
 
   if (roles) {
