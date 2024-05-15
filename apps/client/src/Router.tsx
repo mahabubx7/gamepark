@@ -1,15 +1,25 @@
 import { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { AuthLayout, DashboardLayout, DefaultLayout } from '@layouts'
-import { DashboardPage, HomePage, LoginPage, RegisterPage } from '@pages'
+import {
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  VendorAddPage,
+  VendorDashboard,
+  WelcomePage,
+  // VendorDashboard,
+} from '@pages'
 import AuthGuard from './helpers/authGuard'
 
 export default function Router() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
+        <Route path='/welcome' element={<WelcomePage />} />
         <Route path='/' element={<DefaultLayout />}>
           <Route index element={<AuthGuard Component={HomePage} />} />
+          <Route path='home' element={<AuthGuard Component={HomePage} />} />
           <Route path='*' element={<div>Not found! 404</div>} />
         </Route>
 
@@ -21,7 +31,7 @@ export default function Router() {
         </Route>
 
         <Route path='/dashboard' element={<DashboardLayout />}>
-          <Route index element={<AuthGuard Component={DashboardPage} />} />
+          <Route path='' element={<div>Dashboard</div>} />
           <Route
             path='user'
             element={
@@ -31,15 +41,35 @@ export default function Router() {
               />
             }
           />
-          <Route
-            path='vendor'
-            element={
-              <AuthGuard
-                Component={() => <div>Vendors only</div>}
-                roles={['vendor']}
-              />
-            }
-          />
+          <Route path='vendor'>
+            <Route
+              index
+              element={
+                <AuthGuard Component={VendorDashboard} roles={['vendor']} />
+              }
+            />
+            <Route
+              path='venue'
+              element={
+                <AuthGuard Component={VendorDashboard} roles={['vendor']} />
+              }
+            />
+            <Route
+              path='venue/add'
+              element={
+                <AuthGuard Component={VendorAddPage} roles={['vendor']} />
+              }
+            />
+            <Route
+              path='venue/edit/:id'
+              element={
+                <AuthGuard
+                  Component={() => <p>Edit Venue!</p>}
+                  roles={['vendor']}
+                />
+              }
+            />
+          </Route>
           <Route
             path='admin'
             element={

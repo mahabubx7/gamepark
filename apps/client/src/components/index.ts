@@ -1,2 +1,6 @@
 export * from './Header'
 export * from './Forms'
+export * from './dashboard'
+export * from './modal'
+export * from './venue'
+export * from './notifications'

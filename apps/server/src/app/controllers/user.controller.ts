@@ -158,7 +158,7 @@ class UserController {
    *---------------------------------------------*/
   async getProfile(req: Request, res: Response) {
     try {
-      const { id } = req.params as z.infer<typeof getProfileDto>['params']
+      const { id } = req.params as z.infer<typeof getOneDto>['params']
       // find user by id
       const user = await User.findByPk(+id)
       if (!user) return res.status(404).json({ message: 'User not found!' })
@@ -191,7 +191,7 @@ class UserController {
    *---------------------------------------------*/
   async updateProfile(req: Request, res: Response) {
     try {
-      const { id } = req.params as z.infer<typeof getProfileDto>['params'] // get user id
+      const { id } = req.params as z.infer<typeof getOneDto>['params'] // get user id
       const { fname, lname, address } = (await updateProfileDto.parseAsync(
         req,
       )) as z.infer<typeof updateProfileDto>['body']
@@ -286,7 +286,7 @@ export const deleteUserDto = z.object({
 })
 
 // get user profile
-export const getProfileDto = z.object({
+export const getOneDto = z.object({
   params: z.object({
     id: z.string({ required_error: 'User ID must be given!' }),
   }),

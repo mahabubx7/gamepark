@@ -66,7 +66,7 @@ export const authSlice = createSlice({
     })
     builder.addCase(loginRequest.rejected, (state, { payload }) => {
       state.isLoading = false
-      state.errors = payload
+      state.errors = payload as string
     })
 
     // Register
@@ -85,7 +85,7 @@ export const authSlice = createSlice({
     })
     builder.addCase(registerRequest.rejected, (state, { payload }) => {
       state.isLoading = false
-      state.errors = payload
+      state.errors = payload as string
     })
   },
 })

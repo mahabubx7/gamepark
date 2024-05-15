@@ -12,7 +12,7 @@ export function Header() {
   return (
     <header id='header'>
       <nav
-        className='fixed bottom-0 left-0 w-full bg-white text-gray-800'
+        className='fixed bottom-0 left-0 w-full border-t-2 border-gray-200'
         id='menuNav'
       >
         <ul className='mobile__menu'>
@@ -22,7 +22,7 @@ export function Header() {
             </Link>
           </li>
           <li>
-            <Link to='/auth' className='link'>
+            <Link to='/dashboard' className='link'>
               <GrUser />
             </Link>
           </li>

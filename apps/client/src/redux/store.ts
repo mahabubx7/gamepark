@@ -1,9 +1,11 @@
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
 import authReducer from './auth/auth.slice'
+import venueReducer from './venue/venue.slice'
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    venue: venueReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

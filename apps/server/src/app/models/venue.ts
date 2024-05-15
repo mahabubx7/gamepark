@@ -8,6 +8,10 @@ interface VenueAttributes {
   uid: string
   name: string
   address: string
+  coverImage?: string
+  workingDays?: string[]
+  openningHour?: string
+  closingHour?: string
   isApproved?: boolean
   createdAt?: Date
   deletedAt?: Date
@@ -20,6 +24,10 @@ class Venue extends Model<VenueAttributes> implements VenueAttributes {
   public uid!: string
   public name!: string
   public address!: string
+  public coverImage?: string
+  public workingDays?: string[]
+  public openningHour?: string
+  public closingHour?: string
   public isApproved!: boolean
   public createdAt!: Date
   public deletedAt?: Date
@@ -51,9 +59,27 @@ Venue.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    workingDays: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'],
+    },
+    openningHour: {
+      type: DataTypes.STRING,
+      defaultValue: '06:00',
+    },
+    closingHour: {
+      type: DataTypes.STRING,
+      defaultValue: '22:00',
+    },
     isApproved: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
+    },
+    coverImage: {
+      type: DataTypes.STRING,
+      defaultValue:
+        'https://res.cloudinary.com/duy2qjewy/image/upload/v1715667419/sample.jpg',
+      allowNull: true,
     },
     createdAt: {
       allowNull: false,
@@ -73,6 +99,13 @@ Venue.init(
     modelName: 'Venue',
   },
 )
+
+// Venue.addScope('defaultScope', {
+//   attributes: {
+//     exclude: ['deletedAt'],
+//   },
+//   order: [['createdAt', 'DESC']],
+// })
 
 // relations
 Venue.belongsTo(User, {
