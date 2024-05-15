@@ -16,30 +16,37 @@ module.exports = {
       {
         venueId: 1,
         sportId: 1,
+        hourlyPrice: 200,
       },
       {
         venueId: 1,
         sportId: 2,
+        hourlyPrice: 100,
       },
       {
         venueId: 1,
         sportId: 3,
+        hourlyPrice: 100,
       },
       {
         venueId: 1,
         sportId: 4,
+        hourlyPrice: 100,
       },
       {
         venueId: 2,
         sportId: 1,
+        hourlyPrice: 150,
       },
       {
         venueId: 2,
         sportId: 2,
+        hourlyPrice: 50,
       },
       {
         venueId: 2,
         sportId: 3,
+        hourlyPrice: 100,
       },
     ])
   },

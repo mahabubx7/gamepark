@@ -5,6 +5,8 @@ import Venue from '@app/models/venue'
 import User from '@app/models/user'
 import logger from '@config/logger'
 import Profile from '@app/models/profile'
+import { Sport } from '@app/models/sport'
+import { VenueSports } from '@app/models/venuesports'
 
 class VenueController {
   /*----------------------------------------------
@@ -13,7 +15,7 @@ class VenueController {
   async addVenue(req: Request, res: Response) {
     try {
       const {
-        body: { name, address },
+        body: { name, address, coverImage, workDays, sportTypes },
       } = (await addVenueDto.parseAsync(req)) as z.infer<typeof addVenueDto>
       // only verfied vendors can add a venue
       const vendor = await User.findByPk(+Number(req.user!.id))
@@ -26,9 +28,24 @@ class VenueController {
       const venue = await Venue.create({
         name,
         address,
+        coverImage: coverImage ?? undefined,
+        workingDays: workDays ?? [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Sunday',
+          'Saturday',
+        ],
         adminId: +Number(req.user!.id),
         uid: generateUid(), // generating UID for the venue
       })
+
+      // attach sport types to the venue
+      VenueSports.bulkCreate(
+        sportTypes.map((sportId) => ({ sportId, venueId: venue.id })) as any,
+      )
+
       return res.status(201).json({
         message: 'New venue added!',
         data: venue.toJSON(),
@@ -237,6 +254,22 @@ class VenueController {
       return res.status(500).json({ message: 'Internal server error', error })
     }
   }
+
+  /*----------------------------------------------
+   * @venue get avaliable sport types
+   *---------------------------------------------*/
+  async getSportTypes(_req: Request, res: Response) {
+    try {
+      // get all sport types
+      const sportTypes = await Sport.findAll()
+      return res.status(200).json({ data: sportTypes })
+    } catch (err) {
+      logger.error(err)
+      return res
+        .status(500)
+        .json({ message: 'Internal server error', error: err })
+    }
+  }
 }
 
 // DTO for incoming request validation //
@@ -246,6 +279,11 @@ export const addVenueDto = z.object({
   body: z.object({
     name: z.string({ required_error: 'Name must be given!' }),
     address: z.string({ required_error: 'Address must be given!' }),
+    coverImage: z.optional(
+      z.string({ required_error: 'Cover image must be given!' }).url(),
+    ),
+    workDays: z.optional(z.array(z.string())),
+    sportTypes: z.array(z.number()),
   }),
 })
 

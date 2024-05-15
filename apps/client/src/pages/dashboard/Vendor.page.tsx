@@ -13,6 +13,7 @@ import { EditItemModal } from 'src/components/modal/EditItem'
 import { EditVenueForm } from 'src/components'
 import { IVenueEditable } from '@interfaces/venue/venue.interface'
 import Notify from 'src/components/notifications/Notify'
+import { Link } from 'react-router-dom'
 
 export default function VendorDashboard() {
   const [status, setStatus] = useState({
@@ -80,22 +81,24 @@ export default function VendorDashboard() {
           itemLayout='horizontal'
           dataSource={venues}
           className='flex flex-col gap-2 p-0 m-0'
-          renderItem={(item, index) => (
+          renderItem={(item) => (
             <List.Item className='flex flex-col gap-1 rounded-md'>
               <List.Item.Meta
                 className='flex items-center justify-between w-full text-left'
                 avatar={
                   <Avatar
-                    src={`https://api.dicebear.com/7.x/miniavs/svg?seed=${index}`}
+                    shape={'square'}
+                    size={'large'}
+                    src={item.coverImage}
                   />
                 }
                 title={
-                  <a
+                  <Link
                     className='text-lg font-semibold hover:underline'
-                    href='https://ant.design'
+                    to={`/venue/${item.uid}`}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 }
               />
               <div className='flex flex-col text-left w-full'>

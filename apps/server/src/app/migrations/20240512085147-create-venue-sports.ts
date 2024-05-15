@@ -20,6 +20,10 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
+        hourlyPrice: {
+          type: Sequelize.FLOAT,
+          defaultValue: 100,
+        },
       },
       {
         uniqueKeys: {

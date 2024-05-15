@@ -7,6 +7,7 @@ interface VenueSportsAttributes {
   id: number
   venueId: number
   sportId: number
+  hourlyPrice: number
 }
 
 export class VenueSports
@@ -16,6 +17,7 @@ export class VenueSports
   public id!: number
   public venueId!: number
   public sportId!: number
+  public hourlyPrice!: number
 }
 
 VenueSports.init(
@@ -33,6 +35,10 @@ VenueSports.init(
     sportId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    hourlyPrice: {
+      type: DataTypes.FLOAT,
+      defaultValue: 100,
     },
   },
   {

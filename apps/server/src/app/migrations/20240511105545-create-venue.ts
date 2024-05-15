@@ -27,9 +27,27 @@ module.exports = {
         type: dt.STRING,
         allowNull: false,
       },
+      coverImage: {
+        type: dt.STRING,
+        allowNull: true,
+        defaultValue:
+          'https://res.cloudinary.com/duy2qjewy/image/upload/v1715667419/sample.jpg',
+      },
       isApproved: {
         type: dt.BOOLEAN,
         defaultValue: false,
+      },
+      openningHour: {
+        type: dt.STRING,
+        defaultValue: '06:00',
+      },
+      closingHour: {
+        type: dt.STRING,
+        defaultValue: '22:00',
+      },
+      workingDays: {
+        type: dt.ARRAY(dt.STRING),
+        defaultValue: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Sunday'],
       },
       createdAt: {
         allowNull: false,

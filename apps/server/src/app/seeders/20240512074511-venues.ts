@@ -16,7 +16,7 @@ module.exports = {
 
     await queryInterface.bulkInsert('Venues', [
       {
-        name: 'Shahid Tajuddin park',
+        name: 'Shahid Tajuddin Park',
         address: 'Road 103, Gulshan 2, Dhaka',
         uid: generateUid(),
         adminId: 2,
@@ -24,7 +24,7 @@ module.exports = {
         createdAt: new Date(),
       },
       {
-        name: 'Eclipse park',
+        name: 'Eclipse Park',
         address: 'Mirpur 10, Dhaka',
         uid: generateUid(),
         adminId: 2,

@@ -82,6 +82,13 @@ apiRouter.get(
 /*=== \Vendor ===*/
 
 /*=== Venue ===*/
+
+apiRouter.get(
+  '/sports',
+  [jwtGuard, roleGuard(['admin', 'vendor'])],
+  venueController.getSportTypes,
+) // Get all sports
+
 apiRouter.post(
   '/venue',
   [jwtGuard, roleGuard(['vendor']), dtoGuard(addVenueDto)],
