@@ -10,6 +10,12 @@ export interface IVenue {
   deletedAt: string | null
 }
 
+// updatable type
+export type IVenueEditable = Partial<Pick<IVenue, 'name' | 'address'>>
+
+export type IVenueAdminEditable = IVenueEditable &
+  Partial<Pick<IVenue, 'isApproved'>>
+
 export interface IVenueWithDetails extends IVenue {
   owner: {
     id: number

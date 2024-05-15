@@ -2,6 +2,7 @@ import { getHostAddress } from '@helpers'
 import {
   IVenue,
   IVenueBody,
+  IVenueEditable,
   // IVenue,
   // IVenueBody,
   IVenueListResponse,
@@ -33,6 +34,32 @@ export const createVenueRequest = createAsyncThunk<IVenue, IVenueBody>(
     }
   },
 )
+
+// UPDATE: Update a venue
+export const updateVenueRequest = createAsyncThunk<
+  IVenue,
+  {
+    venue: IVenueEditable
+    uid: string
+  }
+>('venue/updateVenue', async ({ venue, uid }, { rejectWithValue }) => {
+  try {
+    const response = await fetch(baseUri + `/venue/${uid}`, {
+      method: 'PUT',
+      body: JSON.stringify(venue),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('access_token') as string}`,
+      },
+    })
+    const { data } = (await response.json()) as {
+      data: IVenue
+    }
+    return data
+  } catch (error) {
+    return rejectWithValue(error)
+  }
+})
 
 // DELETE: Delete a venue
 export const deleteVenueRequest = createAsyncThunk<void, string>(

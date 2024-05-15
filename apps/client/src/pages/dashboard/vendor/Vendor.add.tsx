@@ -1,9 +1,10 @@
 import { Button, Form, FormProps, Input } from 'antd'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { IVenueBody } from '@interfaces/venue/venue.interface'
 import { createVenueRequest } from '@rtk/venue/venue.api'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@rtk/store'
+import Notify from 'src/components/notifications/Notify'
 
 type FieldType = {
   name?: string
@@ -12,16 +13,39 @@ type FieldType = {
 
 const VendorDashboardIndex: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const [status, setStatus] = useState({
+    success: false,
+    error: false,
+    description: '',
+  })
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     // console.log('Success:', values)
     dispatch(createVenueRequest(values as IVenueBody))
+      .then(() => {
+        setStatus({
+          ...status,
+          success: true,
+          description: 'Successfully added',
+        })
+      })
+      .catch(() => {
+        setStatus({
+          ...status,
+          error: true,
+          description: 'Failed to add a new venue',
+        })
+      })
   }
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (
     errorInfo,
   ) => {
     console.log('Failed:', errorInfo)
-    alert('Failed: Please check the form again')
+    setStatus({
+      ...status,
+      error: true,
+      description: 'Failed! Please try again',
+    })
   }
 
   return (
@@ -58,6 +82,20 @@ const VendorDashboardIndex: FC = () => {
           <Button type='primary' htmlType='submit'>
             Submit
           </Button>
+          <Notify
+            trigger={status.success === true}
+            message='Successfully added'
+            classes='bg-green-100 text-green-600'
+            description={status.description}
+            duration={5}
+          />
+          <Notify
+            trigger={status.error === true}
+            message='Failed!'
+            classes='bg-red-100 text-red-600'
+            description={status.description}
+            duration={5}
+          />
         </Form.Item>
       </Form>
     </>

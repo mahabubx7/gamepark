@@ -4,6 +4,7 @@ import {
   createVenueRequest,
   deleteVenueRequest,
   getOwnVenueRequest,
+  updateVenueRequest,
 } from '@rtk/venue/venue.api'
 
 interface InitialVenueState {
@@ -72,6 +73,28 @@ export const venueSlice = createSlice({
     builder.addCase(deleteVenueRequest.fulfilled, (state, { meta }) => {
       state.isLoading = false
       state.venues = state.venues.filter((venue) => venue.uid !== meta.arg) // remove venue from list
+      state.isLoaded = true // data is ready to display
+    })
+
+    // update venue [by owner]
+    builder.addCase(updateVenueRequest.pending, (state) => {
+      state.isLoading = true
+      state.errors = null
+      state.isLoaded = false // reset
+    })
+    builder.addCase(updateVenueRequest.rejected, (state, { payload }) => {
+      state.isLoading = false
+      state.errors = payload as string | Record<string, unknown>
+      state.isLoaded = true // request completed
+    })
+    builder.addCase(updateVenueRequest.fulfilled, (state, { payload }) => {
+      state.isLoading = false
+      state.venues = state.venues.map((venue) => {
+        if (venue.uid === payload.uid) {
+          return payload
+        }
+        return venue
+      })
       state.isLoaded = true // data is ready to display
     })
   },
